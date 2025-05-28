@@ -1,0 +1,282 @@
+@import "./fonts.scss";
+
+$mobile-width: 120ch;
+$reading-width: 90ch;
+$line-thickness: 0.2rem;
+$h1-margin-top: 1em;
+
+:root {
+	--foreground: white;
+	--background: #111;
+	--link-color: lightblue;
+	--visited-link-color: pink;
+	--accent: #0ff;
+	--trans-accent: rgba(0, 255, 255, 0.3);
+
+	font-family: "Computer Modern Sans", sans-serif;
+	font-size: 14pt;
+}
+
+body {
+	height: 100vh;
+	margin: 0;
+
+	display: grid;
+	grid-template-areas: "header" "main" "footer";
+	grid-template-rows: auto 1fr auto;
+	background-color: black;
+}
+
+code {
+	font-family: "MonaspiceKr NF", monospace;
+	font-size: 85%;
+}
+
+main {
+	grid-area: main;
+	box-sizing: border-box;
+	color: var(--foreground);
+
+	background-color: var(--background);
+	width: 100%;
+
+	a {
+		color: var(--link-color);
+
+		&:visited {
+			color: var(--visited-link-color);
+		}
+	}
+
+	> div {
+		max-width: $reading-width;
+		margin: 0 auto;
+	}
+
+	p > img {
+		margin: auto;
+		display: block;
+		max-width: 100%;
+		max-height: 5cm;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		scroll-margin-top: 1em;
+		position: relative;
+		margin: 0;
+	}
+
+	* + h2,
+	* + h3,
+	* + h4,
+	* + h5,
+	* + h6 {
+		margin-top: $h1-margin-top;
+	}
+
+	* + h1 {
+		margin-top: 3 * $h1-margin-top;
+	}
+
+	p {
+		line-height: 1.5em;
+		margin: 1em 0 0 0;
+	}
+
+	blockquote {
+		margin: 0 0 0 1em;
+	}
+}
+
+a[target="_blank"]::after {
+	filter: invert(1);
+}
+
+main {
+	padding: 2rem;
+	overflow: auto;
+}
+
+a {
+	&:hover {
+		outline: 0.1rem solid var(--accent);
+	}
+	&:active {
+		scale: 0.99;
+	}
+	*:focus {
+		outline: 0.2rem solid var(--accent);
+	}
+
+	/* crazy hack to get the cool 'open-in-new-tab' icon on external links */
+	&[target="_blank"]::after {
+		content: "";
+		width: 1em;
+		height: 1em;
+		margin: 0 0.05em 0 0.1em;
+		background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNiAxNiIgd2lkdGg9IjE2IiBoZWlnaHQ9IjE2Ij48cGF0aCBkPSJNOSAyTDkgMyAxMi4zIDMgNiA5LjMgNi43IDEwIDEzIDMuNyAxMyA3IDE0IDcgMTQgMlpNNCA0QzIuOSA0IDIgNC45IDIgNkwyIDEyQzIgMTMuMSAyLjkgMTQgNCAxNEwxMCAxNEMxMS4xIDE0IDEyIDEzLjEgMTIgMTJMMTIgNyAxMSA4IDExIDEyQzExIDEyLjYgMTAuNiAxMyAxMCAxM0w0IDEzQzMuNCAxMyAzIDEyLjYgMyAxMkwzIDZDMyA1LjQgMy40IDUgNCA1TDggNSA5IDRaIi8+PC9zdmc+)
+			no-repeat;
+		background-size: contain;
+		display: inline-block;
+		vertical-align: text-top;
+	}
+}
+
+header a,
+footer a {
+	display: contents;
+	text-decoration: unset;
+}
+
+header {
+	border-bottom: $line-thickness solid var(--trans-accent);
+	> div {
+		padding: 0.5rem;
+
+		#banner {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			margin: 0;
+			padding: 1rem;
+			gap: 1rem;
+
+			img {
+				height: 3em;
+			}
+		}
+	}
+}
+
+footer {
+	color: white;
+	border-top: $line-thickness solid var(--trans-accent);
+	background-color: black;
+	grid-area: footer;
+	font-size: small;
+	padding: 0.3rem;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1ch;
+}
+
+li {
+	margin-top: 1em;
+
+	&::marker {
+		font-weight: bold;
+	}
+}
+
+hr {
+	width: 100%;
+	height: 0.1rem;
+	margin: 1em auto;
+	border: none;
+	background-color: var(--trans-accent);
+}
+
+.box {
+	display: inline-block;
+	padding: 0.5em;
+	border: $line-thickness solid var(--trans-accent);
+	> :first-child {
+		margin-top: 0;
+	}
+	> :last-child {
+		margin-bottom: 0;
+	}
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	&:target {
+		background-color: rgba(#ff0, 0.3);
+		animation: fadeBackground 5s forwards;
+		&::before {
+			content: "→";
+			color: var(--accent);
+			margin-right: 0.3em;
+			padding: 0 0.2em;
+		}
+	}
+}
+
+@keyframes fadeBackground {
+	0%,
+	50% {
+	}
+	100% {
+		background-color: transparent;
+	}
+}
+
+@media (max-width: $mobile-width) {
+	/* otherwise the mobile nav gets stuck in face */
+	main {
+		overflow: visible;
+	}
+
+	body {
+		grid-template-areas: "nav" "main" "footer";
+		grid-template-columns: 1fr;
+		grid-template-rows: auto 1fr auto;
+	}
+}
+
+@mixin light-mode {
+	--foreground: #111;
+	--background: white;
+	--accent: #0aa;
+	--link-color: blue;
+	--visited-link-color: purple;
+}
+
+@media (prefers-color-scheme: light) {
+	body:not(.dark) {
+		@include light-mode;
+	}
+}
+
+body.light {
+	@include light-mode;
+}
+
+#light-mode-checkbox {
+	display: block;
+	margin-left: auto;
+	appearance: none;
+	width: 2rem;
+	height: 2rem;
+	font-size: 1rem;
+	cursor: pointer;
+	position: relative;
+
+	&::after {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		color: transparent;
+		text-shadow: 0 0 0 #ff0;
+	}
+
+	&:not(:checked)::after {
+		content: "🌙";
+	}
+	&:checked::after {
+		content: "☀️";
+	}
+}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block xhead %}
+    <style>
+    #posts > a > div{
+        border: 0.2rem solid var(--trans-accent);
+        padding: .7rem;
+        margin: 1ch 0;
+
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        justify-items: center;
+        column-gap: 2rem;
+
+        p {
+            margin: 0;
+        }
+    }
+    </style>
+{% endblock xhead %}
+{% block content %}
+    <p>{{ config.description }}</p>
+    {{ section.content | safe }}
+    <h2>Nyheter</h2>
+    {% set blog = get_section(path="blog/_index.md") %}
+    <div id="posts">
+        {% for page in blog.pages | slice(end=5) %}
+            <a href="{{ page.permalink | safe }}">
+                <div>
+                    <h3>{{ page.title }}</h3>
+                    <div style="justify-self:left;">{{ page.summary | safe }}</div>
+                    <div>{{ page.date }} | {{ page.reading_time }} min</div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock content %}

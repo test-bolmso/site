@@ -1,0 +1,11 @@
+[tools]
+zola = "0.20"
+
+[tasks.serve]
+run = 'zola serve --open'
+
+[tasks.build]
+run = 'zola build'
+
+[tasks.clean]
+run = 'rm -rf public/'

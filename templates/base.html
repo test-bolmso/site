@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="sv">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="/logo-brain.png">
+        <link rel="stylesheet" href="/main.css">
+        <link rel="preload"
+              href="/cmunss.woff2"
+              as="font"
+              type="font/woff2"
+              crossorigin>
+        <title>
+            {% if page.title %}{{ page.title }} -{% endif %}
+        {{ config.title }}</title>
+        <meta name="description"
+              content="{% block description %}{{ config.description }}{% endblock %}">
+        <script src="/lightmode.js" defer></script>
+        {% block xhead %}{% endblock xhead %}
+    </head>
+    <body>
+        <header>
+            <input id="light-mode-checkbox" type="checkbox">
+            <div>
+                <a id="banner" href="/">
+                    <img src="/logo-no-bg.png" alt="LAILa:s logga" height="200">
+                    <b style="font-size: 2rem; color: var(--accent);">
+                        {{ config.title }}
+                    </b>
+                </a>
+            </div>
+        </header>
+        <main>
+            <div>
+                {% block content %}
+                    {{ section.content | safe }}
+                {% endblock content %}
+            </div>
+        </main>
+        <footer>
+            Projekt under
+            <a href="//www.lysator.liu.se">
+                <img height="30" width="30" src="/lyslogo.svg" alt="Lysators logga">
+                <span style="color: #ff0;">Lysator</span>
+            </a>
+        </footer>
+    </body>
+</html>

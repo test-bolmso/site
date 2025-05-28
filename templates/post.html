@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>{{ page.title }}</h1>
+
+<div>
+    {{ page.date }} | {{ page.reading_time }} min
+    {% if page.author %}
+        | <span>skriven av {{ page.author }}</span>
+    {% endif %}
+</div>
+
+<hr>
+
+{{ page.content | safe }}
+
+{% endblock content %}
